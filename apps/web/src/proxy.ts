@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { applyAuthCookiesToResponse } from "./features/auth/cookies";
 import * as jose from "jose";
 
-const AUTH_ROUTES = ["/login", "register"];
+const AUTH_ROUTES = ["/login", "/register"];
 const PROTECTED_ROUTES = ["/organizations", "/dashboard"];
 
 async function refreshSession(

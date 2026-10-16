@@ -36,7 +36,7 @@ export class AuthController {
   ) {
     const token = await this.authService.register(dto);
     if (!token) {
-      throw new Error('Failed to register user.');
+      throw new Error('Failed to register user.'); // 不可达的错误
     }
     this.authService.setTokenCookies(res, token); // 手动设置cookie
     return { message: 'Register successfully.' }; // 正常返回JSON
@@ -53,14 +53,14 @@ export class AuthController {
       throw new Error('Failed to generate tokens.');
     }
     this.authService.setTokenCookies(res, tokens);
-    return { message: 'Logged in susscessfully.' };
+    return { message: 'Logged in successfully.' };
   }
 
   @Post('logout')
   @HttpCode(200)
   logout(@Res({ passthrough: true }) res: Response) {
     this.authService.clearTokenCookies(res);
-    return { message: 'Logged out susscessfully.' };
+    return { message: 'Logged out successfully.' };
   }
 
   @Post('refresh')
