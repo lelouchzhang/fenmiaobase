@@ -8,6 +8,20 @@
       "when": 1791097106123,
       "tag": "0000_dark_chronomancer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1760314290000,
+      "tag": "0001_oauth_provider",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791897657389,
+      "tag": "0002_lumpy_enchantress",
+      "breakpoints": true
     }
   ]
 }

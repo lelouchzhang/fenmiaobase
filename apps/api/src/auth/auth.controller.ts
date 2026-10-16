@@ -28,8 +28,9 @@ export class AuthController {
   ) {}
 
   @Post('register')
+  @HttpCode(200)
   async register(
-    @Body() dto: RegisterDto,
+    @Body() dto: RegisterDto, // 根据配置,body -> dto
     // 默认情况下，如果你注入了 @Res()，NestJS 会认为你要自己完全控制响应，就不会再自动处理返回值
     @Res({ passthrough: true }) res: Response,
   ) {
@@ -64,7 +65,10 @@ export class AuthController {
 
   @Post('refresh')
   @HttpCode(200)
-  async refresh(@Req() req: Request, @Res() res: Response) {
+  async refresh(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const refreshToken = req.cookies[COOKIE_KEYS.REFRESH_TOKEN];
     if (!refreshToken) {
       throw new Error('Refresh token not found.');
@@ -85,8 +89,8 @@ export class AuthController {
 
   @Get('google')
   @Redirect()
-  googleLogin() {
-    return { url: this.authService.getGoogleAuthUrl() };
+  async googleLogin() {
+    return { url: await this.authService.getGoogleAuthUrl() };
   }
 
   @Get('google/callback')
@@ -101,8 +105,8 @@ export class AuthController {
 
   @Get('github')
   @Redirect()
-  githubLogin() {
-    return { url: this.authService.getGithubAuthUrl() };
+  async githubLogin() {
+    return { url: await Promise.resolve(this.authService.getGithubAuthUrl()) };
   }
 
   @Get('github/callback')

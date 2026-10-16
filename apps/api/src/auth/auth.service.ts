@@ -17,7 +17,7 @@ import {
   organizations,
   organizationMembers,
 } from '../db/schema/index.js';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto.js';
 
@@ -105,7 +105,12 @@ export class AuthService {
 
     const [user] = await this.drizzle.db
       .insert(users)
-      .values({ email: dto.email, passwordHash, name: dto.name })
+      .values({
+        email: dto.email,
+        provider: 'email',
+        passwordHash,
+        name: dto.name,
+      })
       .returning();
 
     const [orgination] = await this.drizzle.db
@@ -128,7 +133,7 @@ export class AuthService {
     const [user] = await this.drizzle.db
       .select()
       .from(users)
-      .where(eq(users.email, dto.email))
+      .where(and(eq(users.email, dto.email), eq(users.provider, 'email')))
       .limit(1);
 
     if (!user || !user.passwordHash) {
@@ -173,11 +178,18 @@ export class AuthService {
     email: string;
     name: string;
     avatarUrl: string | null;
+    provider: 'google' | 'github';
+    providerUserId: string;
   }): Promise<AuthTokens> {
     let [user] = await this.drizzle.db
       .select()
       .from(users)
-      .where(eq(users.email, profile.email))
+      .where(
+        and(
+          eq(users.provider, profile.provider),
+          eq(users.providerUserId, profile.providerUserId),
+        ),
+      )
       .limit(1);
 
     if (!user) {
@@ -185,6 +197,8 @@ export class AuthService {
         .insert(users)
         .values({
           email: profile.email,
+          provider: profile.provider,
+          providerUserId: profile.providerUserId,
           name: profile.name,
           avatarUrl: profile.avatarUrl,
         })
@@ -253,6 +267,7 @@ export class AuthService {
     );
 
     const profile = (await profileResponse.json()) satisfies {
+      sub: string;
       email: string;
       name: string;
       picture?: string;
@@ -262,6 +277,8 @@ export class AuthService {
       email: profile.email,
       name: profile.name,
       avatarUrl: profile.picture ?? null,
+      provider: 'google',
+      providerUserId: profile.sub,
     });
   }
 
@@ -306,6 +323,7 @@ export class AuthService {
     });
 
     const profile = (await profileRes.json()) satisfies {
+      id: number;
       email: string | null;
       name: string | null;
       login: string;
@@ -332,6 +350,8 @@ export class AuthService {
       email: email!,
       name: profile.name ?? profile.login,
       avatarUrl: profile.avatar_url ?? null,
+      provider: 'github',
+      providerUserId: String(profile.id),
     });
   }
 }
