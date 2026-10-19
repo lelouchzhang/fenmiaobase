@@ -16,8 +16,8 @@ import { RegisterDto } from './dto/register.dto.js';
 import type { Request, Response } from 'express';
 import { LoginDto } from './dto/login.dto.js';
 import { COOKIE_KEYS } from '@fmbase/constants';
-import { JWTAuthGuard } from './jwt-auth.guard.js';
-import { CurrentUser } from './current-user.decorator.js';
+import { JWTAuthGuard } from './guards/jwt-auth.guard.js';
+import { CurrentUser } from './decorators/current-user.decorator.js';
 import type { JwtPayload } from '@fmbase/types';
 
 @Controller('auth')

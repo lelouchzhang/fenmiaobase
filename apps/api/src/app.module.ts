@@ -5,6 +5,7 @@ import { AppService } from './app.service.js';
 import { ConfigModule } from '@nestjs/config';
 import { DbModule } from './db/db.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { OrganizationsModule } from './organization/organizations.module.js';
 
 // export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -22,6 +23,7 @@ import { AuthModule } from './auth/auth.module.js';
     }),
     DbModule,
     AuthModule,
+    OrganizationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

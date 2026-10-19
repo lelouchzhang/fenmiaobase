@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { AuthService } from './auth.service.js';
-import { organizations } from '../db/schema/index.js';
+import { AuthService } from '../auth.service.js';
+import { organizations } from '../../db/schema/index.js';
 
 describe('AuthService', () => {
   it('creates a new OAuth user when the same email is used with a different provider', async () => {

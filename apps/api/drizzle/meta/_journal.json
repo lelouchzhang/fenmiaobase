@@ -22,6 +22,13 @@
       "when": 1791897657389,
       "tag": "0002_lumpy_enchantress",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792201982513,
+      "tag": "0003_flippant_zombie",
+      "breakpoints": true
     }
   ]
 }
