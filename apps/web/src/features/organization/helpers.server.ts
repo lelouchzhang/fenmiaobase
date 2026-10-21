@@ -1,10 +1,10 @@
-import apiClient from "@/lib/axios.js";
-import { retrieveAccessTokenFromCookie } from "@/lib/server-utils.js";
+import apiClient from "@/lib/axios";
+import { retrieveAccessTokenFromCookie } from "@/lib/server-utils";
 import { COOKIE_KEYS } from "@fmbase/constants";
 import { OrganizationWithMeta } from "@fmbase/types";
-import { redirect } from "next/navigation.js";
+import { redirect } from "next/navigation";
 
-export async function retrieveMyOrganizationFromApi(): Promise<
+export async function retrieveMyOrganizationsFromApi(): Promise<
   OrganizationWithMeta[]
 > {
   const token = await retrieveAccessTokenFromCookie();
@@ -24,13 +24,12 @@ export async function retrieveMyOrganizationFromApi(): Promise<
   }
 }
 
-export async function retrieveOrganizationBySlugFromApi(slug: string) {
+export async function retrieveOrganizationsBySlugFromApi(slug: string) {
   const token = await retrieveAccessTokenFromCookie();
-
   try {
-    const { data } = await apiClient.get(`/organizations/:${slug}`, {
+    const { data } = await apiClient.get(`/organizations/${slug}`, {
       headers: {
-        Cookie: `${COOKIE_KEYS.ACCESS_TOKEN} = ${token}`,
+        Cookie: `${COOKIE_KEYS.ACCESS_TOKEN}=${token}`,
       },
     });
     return data;

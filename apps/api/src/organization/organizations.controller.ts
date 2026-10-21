@@ -10,6 +10,7 @@ import { CreateOrganizationDto } from './dto/create-organization.dto.js';
 export class OrganizationController {
   constructor(private organizationService: OrganizationService) {}
 
+  //
   @Get()
   getMyOrganizations(@CurrentUser() user: JwtPayload) {
     return this.organizationService.getMyOrganizations(user.sub);

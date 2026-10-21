@@ -344,6 +344,9 @@ export class AuthService {
         verified: boolean;
       }[];
       email = emails.find((e) => e.primary && e.verified)?.email ?? null;
+      // throw new UnauthorizedException(
+      //   'GitHub account has no verified email. Please verify or publicize your GitHub email and retry.',
+      // );
     }
 
     return this.handleOAuthUser({

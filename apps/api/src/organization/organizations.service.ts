@@ -74,6 +74,7 @@ export class OrganizationService {
       .where(eq(organizations.slug, slug))
       .limit(1);
     if (!row) throw new NotFoundException('organizations not found.');
+    return row;
   }
 
   async createOrganization(dto: CreateOrganizationDto, userId: string) {

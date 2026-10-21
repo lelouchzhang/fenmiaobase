@@ -1,0 +1,19 @@
+{
+  // 关键：让导入后缀跟随每个文件所属 tsconfig 的 moduleResolution
+  // - apps/web  (bundler)  → 不带扩展名 "@/features/foo/bar"
+  // - apps/api  (nodenext) → 自动补 ".js" "./foo/bar.js"
+  "typescript.preferences.importModuleSpecifierEnding": "auto",
+  "javascript.preferences.importModuleSpecifierEnding": "auto",
+
+  // 有 paths 别名时优先用别名（web 的 "@/*"），没有别名时自动退回相对路径
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+
+  // 保存时自动补全缺失的 import（避免手写出错的后缀）
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "explicit"
+  },
+
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsserver.maxTsServerMemory": 4096
+}

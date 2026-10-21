@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "nodenext (Node ESM，运行时直接执行 dist)",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "ES2023",
+    "sourceMap": true,
+    "declaration": true,
+    "rewriteRelativeImportExtensions": false
+  }
+}

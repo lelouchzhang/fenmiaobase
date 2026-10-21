@@ -1,6 +1,6 @@
 import { COOKIE_KEYS } from "@fmbase/constants";
-import { cookies } from "next/headers.js";
-import { redirect } from "next/navigation.js";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function retrieveAccessTokenFromCookie(): Promise<string> {
   const cookieStore = await cookies();
