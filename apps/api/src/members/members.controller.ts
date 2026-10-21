@@ -16,7 +16,7 @@ import { RequireOrgRole } from '../auth/decorators/require-org-role.decorator.js
 import { UpdateRoleDto } from './dto/update-role.dto.js';
 import { InviteMemberDto } from './dto/invite-member.dto.js';
 
-@Controller()
+@Controller('orgs/:slug/members')
 @UseGuards(JWTAuthGuard, OrganizationRoleGuard)
 export class MembersController {
   constructor(

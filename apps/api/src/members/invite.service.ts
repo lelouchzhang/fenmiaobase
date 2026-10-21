@@ -33,6 +33,7 @@ export class InviteService {
       .from(organizations)
       .where(eq(organizations.slug, organizationSlug))
       .limit(1);
+
     if (!organization) throw new BadRequestException('Organization not found');
 
     const existingUser = await this.drizzle.db
@@ -107,6 +108,7 @@ export class InviteService {
       .from(users)
       .where(eq(users.email, payload.email))
       .limit(1);
+
     if (!user) {
       const [newUser] = await this.drizzle.db
         .insert(users)
@@ -114,6 +116,7 @@ export class InviteService {
           email: payload.email,
         })
         .returning();
+
       user = newUser;
     }
 
@@ -128,6 +131,7 @@ export class InviteService {
         ),
       )
       .limit(1);
+
     if (existing.length > 0) {
       return { message: 'Already a member' };
     }
